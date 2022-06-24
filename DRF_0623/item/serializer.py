@@ -1,25 +1,26 @@
 from rest_framework import serializers
+from .models import Category, Item, Order, ItemOrder
 
 
-class UserSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ["username", "password", "fullname", "email"]
+        model = Category
+        fields = ["name", ]
 
 
-class UserSerializer(serializers.ModelSerializer):
+class ItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ["username", "password", "fullname", "email"]
-
-        class UserSerializer(serializers.ModelSerializer):
+        model = Item
+        fields = ["name", "category", "image_url", ]
 
 
-class Meta:
-        model = User
-        fields = ["username", "password", "fullname", "email"]
-        class UserSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
+    class Order:
+        model = Order
+        fields = ["delivery_address", "order_date", "item", ]
 
+
+class ItemOrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ["username", "password", "fullname", "email"]
+        model = ItemOrder
+        fields = ["order", "item", "item_count", ]
