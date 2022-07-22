@@ -7,10 +7,11 @@ from .models import (
     JobPostSkillSet,
     JobType,
     JobPost,
-    Company
+    Company,
+
 )
 from .permissions import IsCandidateUser
-from .serializers import JobPostSerializer, JobPostActivitySerializer
+from .serializers import JobPostSerializer, UserApplicationSerializer
 from django.db.models.query_utils import Q
 
 
@@ -77,9 +78,9 @@ class ApplyView(APIView):
 
     def post(self, request):
         request.data['user']= request.user.id
-        apply_serialzer = JobPostActivitySerializer(data=request.data)
-        if apply_serialzer.is_valid():
-            apply_serialzer.save()
+        user_application = UserApplicationSerializer(data=request.data)
+        if user_application.is_valid():
+            user_application.save()
             return Response(status=status.HTTP_200_OK)
 
-        return Response(apply_serialzer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(user_application.errors, status=status.HTTP_400_BAD_REQUEST)

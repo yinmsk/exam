@@ -1,8 +1,12 @@
+from operator import mod
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, AbstractUser
 from django.utils.translation import gettext_lazy as _
+
+from post.models import JobPostActivity
+
 
 class UserType(models.Model):
     user_type = models.CharField(max_length=50) # candidate, recruiter
@@ -95,3 +99,11 @@ class UserLog(models.Model):
     class Meta:
         db_table = 'user_logs'
 
+
+class UserApplication(models.Model):
+    user = models.ForeignKey(JobPostActivity, on_delete=models.CASCADE, null=True)
+    writing = models.CharField(max_length=255)
+    submitted = models.CharField(max_length=255)
+    under_review = models.CharField(max_length=255)
+    interview_planned = models.CharField(max_length=255)
+    in_recruitment_progress = models.CharField(max_length=255)
